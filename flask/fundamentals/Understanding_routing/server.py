@@ -51,20 +51,6 @@ def ninja_bonus(var1, var2, var3):
     # Return the concatenated string
     return concatenatedString
 
-# NINJA BONUS: For the 4th task, 
-# ensure the 2nd element in the URL is an integer, 
-# and the 3rd element is a string
-# If they aren't integers or strings respectively,
-# # convert them into their respective types before performing the operation
-# @app.route("/ninja-bonus/<int:var2>/<str:var3>")
-# def ninja_bonus2(var2, var3):
-#     # Convert all variables to appropriate data types
-#     intVar2 = int(var2)
-#     strVar3 = str(var3)
-#     # Perform the desired operation (addition of two numbers)
-#     sumResult = intVar2 + len(strVar3)
-#     # Return the result
-#     return sumResult
 
 # SENSEI BONUS: Ensure that if the user types in any route other than the ones specified, 
 # they receive an error message saying "Sorry! No response. Try again."
