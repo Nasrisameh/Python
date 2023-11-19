@@ -8,16 +8,16 @@
     <title>Checkerboard</title>
 </head>
 <body>
-    <h1 style="background-color: {{color2}}; color: {{color1}};">*** CHECKERBOARD ***</h1>
+    <h1>*** CHECKERBOARD ***</h1>
     <table>
         <tbody>
             {% for i in range(0,row) %}
                 <tr>
                     {% for j in range(0,col) %}
                         {% if (j+i) % 2 == 0 %}
-                            <td style="background-color: {{color1}};"></td>
+                            <td {{color1}}></td>
                         {% else %}
-                            <td style="background-color: {{color2}};"></td>
+                            <td {{color2}}></td>
                         {%  endif %}
                     {% endfor %}
                 </tr>
