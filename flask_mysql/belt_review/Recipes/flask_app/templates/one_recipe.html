@@ -9,13 +9,11 @@
 </head>
 <body>
     <nav class="d-flex justify-content-between align-items-center col-12">
-        <h1 class="text-center">Welcome {{user.first_name}}!!!</h1>
+        <h1 class="text-center">Add new recipe</h1>
         <div class="d-flex col-4 justify-content-around">
             <a href="/dashboard" class="btn btn-primary">Dashboard</a>
             <a href="/logout" class="btn btn-info">Logout</a>
-
         </div>
-
     </nav>
     <form action="/create/recipe" method="post" class="col-11 p-4 my-4 bg-dark text-light mx-auto">
         <h2 class="text-primary">Add a New Recipe</h2>
@@ -46,16 +44,14 @@
                 </div>
             </div>
             <div class="col-4">
-
                 <div class="form-group">
                     <label for="date_made">Date Made:</label>
-                    <input type="date" name="date_made" class="form-control">
+                    <input type="date" name="date" class="form-control">
                 </div>
                 <label for="under30">Under 30 Minutes?:</label>
                 <div class="input-group-text bg-dark">
                     <input type="radio" name="under30" value="0" class="form-control" >
                     <label for="0" class="text-warning">No</label>
-
                 </div>
                 <div class="input-group-text bg-dark">
                     <input type="radio" name="under30" value="1" class="form-control">
@@ -67,5 +63,7 @@
             </div>
         </div>
     </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>

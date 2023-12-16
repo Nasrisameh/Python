@@ -1,5 +1,6 @@
 from flask_app.config.mysqlconnection import connectToMySQL,DB
 from flask import flash
+from flask_app.models.user import User
 
 class Recipe:
     def __init__(self,db_data):
@@ -7,43 +8,76 @@ class Recipe:
         self.name = db_data['name']
         self.description = db_data['description']
         self.instructions = db_data['instructions']
-        self.make_time = db_data['make_time']
-        self.date_made = db_data['date_made']
-        self.user_id = db_data['user_id']
+        self.date= db_data['date']
+        self.under_30 = db_data['under_30']
         self.created_at = db_data['created_at']
         self.updated_at = db_data['updated_at']
 
-    @classmethod
-    def save(cls,data):
-        query = "INSERT INTO recipes (name, description, instructions, under30, date_made, user_id) VALUES (%(name)s,%(description)s,%(instructions)s,%(under30)s,%(date_made)s,%(user_id)s);"
-        return connectToMySQL(DB).query_db(query, data)
+        self.user_id = None
 
+    # ******Get all******
     @classmethod
     def get_all(cls):
-        query = "SELECT * FROM recipes;"
-        results =  connectToMySQL(DB).query_db(query)
-        all_recipes = []
-        for row in results:
-            print(row['date_made'])
-            all_recipes.append( cls(row) )
-        return all_recipes
+        query = "SELECT * FROM recipes JOIN users ON users.id = recipes.user_id;"
+        results = connectToMySQL(DB).query_db(query)
+        recipes = []
+        if results:
+            for row in results:
+                recipe = cls(row)
+                user_data = {
+                    'id': row['users.id'],
+                    'first_name': row['first_name'],
+                    'last_name': row['last_name'],
+                    'email': row['email'],
+                    'password': row['password'],
+                    'created_at': row['users.created_at'],
+                    'updated_at': row['users.updated_at']
+                }
+                recipe.user = User(user_data)
+                recipes.append(recipe)
+        return recipes
     
+    # ******Get one by id******
     @classmethod
     def get_one(cls,data):
-        query = "SELECT * FROM recipes WHERE id = %(id)s;"
-        results = connectToMySQL(DB).query_db(query,data)
-        return cls( results[0] )
+        query = "SELECT * FROM recipes JOIN users ON users.id = recipes.user_id WHERE recipes.id = %(id)s;"
+        results = connectToMySQL(DB).query_db(query , data)
 
+        if results:
+            recipe = cls(results[0])
+            user_data = {
+                'id': results[0]['users.id'],
+                'first_name': results[0]['first_name'],
+                'last_name': results[0]['last_name'],
+                'email': results[0]['email'],
+                'password': results[0]['password'],
+                'created_at': results[0]['users.created_at'],
+                'updated_at': results[0]['users.updated_at']
+            }
+            recipe.user = User(user_data)
+            return recipe
+        return False
+
+    # ******Create******
+    @classmethod
+    def save(cls,data):
+        query = "INSERT INTO recipes (name , description , instructions , date , under_30 , user_id) VALUES (%(name)s , %(description)s , %(instructions)s , %(date)s , %(under_30)s , %(user_id)s);"
+        return connectToMySQL(DB).query_db(query, data)
+    
+    
+    # ******Update******
     @classmethod
     def update(cls, data):
-        query = "UPDATE recipes SET name=%(name)s, description=%(description)s, instructions=%(instructions)s, under30=%(under30)s, date_made=%(date_made)s,updated_at=NOW() WHERE id = %(id)s;"
+        query = "UPDATE recipes SET name = %(name)s, description = %(description)s, instructions = %(instructions)s, date = %(date)s, under_30 = %(under_30)s WHERE id = %(id)s;"
         return connectToMySQL(DB).query_db(query,data)
     
+    # ******Delete******
     @classmethod
     def destroy(cls,data):
         query = "DELETE FROM recipes WHERE id = %(id)s;"
         return connectToMySQL(DB).query_db(query,data)
 
+    # *****Validate_Recipe*****
     @staticmethod
     def validate_recipe(recipe):
         is_valid = True
