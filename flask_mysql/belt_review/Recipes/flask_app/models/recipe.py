@@ -90,7 +90,7 @@ class Recipe:
         if len(recipe['description']) < 3:
             is_valid = False
             flash("Description must be at least 3 characters","recipe")
-        if recipe['date_made'] == "":
+        if recipe['date'] == "":
             is_valid = False
             flash("Please enter a date","recipe")
         return is_valid

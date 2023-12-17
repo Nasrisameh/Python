@@ -29,12 +29,12 @@
                 <textarea name="instructions" class="form-control" cols="30" rows="5">{{edit.instructions}}</textarea>
             </div>
             <div class="mb-3 ml-5">
-                <label for="date_made" class="form-label">Date Made On:</label><br>
-                <input type="date" name="date_made" value="{{edit.date_made.strftime('%m-%d-%Y')}} id=""><br>
-                <label for="make_time" class="form-label mt-3">Ready in 30 Minutes?</label><br>
-                <input id="1" type="radio" name="make_time" value="1">
+                <label for="date" class="form-label">Date Made On:</label><br>
+                <input type="date" name="date" value="{{edit.date}}"><br>
+                <label for="under_30" class="form-label mt-3">Ready in 30 Minutes?</label><br>
+                <input id="1" type="radio" name="under_30" value="1">
                 <label for="1">Yes</label><br>
-                <input id="0" type="radio" name="make_time" value="0">
+                <input id="0" type="radio" name="under_30" value="0">
                 <label for="0">No</label><br>
                 <input type='submit' value='Update' class="btn btn-warning rounded-pill mt-4">
             </div>

@@ -16,8 +16,8 @@ def create_recipe():
         "name": request.form["name"],
         "description": request.form["description"],
         "instructions": request.form["instructions"],
-        "make_time": int(request.form["make_time"]),
-        "date_made": request.form["date_made"],
+        "under_30": int(request.form["under_30"]),
+        "date": request.form["date"],
         "user_id": session["user_id"]
     }
     Recipe.save(data)
@@ -32,7 +32,7 @@ def new_recipe():
     data = {
         "id":session['user_id']
     }
-    return render_template('new_recipe.html', user = User.get_by_id(data))
+    return render_template('one_recipe.html', user = User.get_by_id(data))
 
 # *****UPDATE*****
 # route :/edit/recipe/{{recipe.id}}
@@ -59,8 +59,8 @@ def update_recipe():
         "name": request.form["name"],
         "description": request.form["description"],
         "instructions": request.form["instructions"],
-        "make_time": int(request.form["make_time"]),
-        "date_made": request.form["date_made"],
+        "under_30": int(request.form["under_30"]),
+        "date": request.form["date"],
         "id": request.form['id']
     }
     Recipe.update(data)
